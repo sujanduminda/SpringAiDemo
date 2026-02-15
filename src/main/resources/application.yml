@@ -1,0 +1,12 @@
+server:
+  port: 8080
+
+# To enable real data from OpenWeatherMap provide your API key here or via environment variable
+# openweathermap:
+#   api:
+#     key: YOUR_API_KEY_HERE
+
+# Alternatively set environment variable: OPENWEATHERMAP_API_KEY
+openweathermap:
+  api:
+    key: "${OPENWEATHERMAP_API_KEY:}"

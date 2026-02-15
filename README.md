@@ -1,93 +1,30 @@
-# Spring AI Demo
+SpringAiDemo - Weather REST API
 
-This repository contains a demo Spring Boot application that showcases integrating AI capabilities into a Spring application. The demo provides examples for calling AI services, handling prompts, and integrating AI responses into business logic.
+This project provides a simple Spring Boot REST API to get the current weather status for a given city.
 
-> NOTE: This README is a general template. Update configuration values and instructions to match your specific implementation and AI provider.
+Features
+- GET /api/weather?city={cityName}
+- Returns JSON with city, temperature (Celsius), description, timestamp and data source.
+- If an OpenWeatherMap API key is provided the service will fetch real data. Otherwise it returns a deterministic mock response for testing.
 
-## Features
+How to run
+1. Build:
+   mvn -U -DskipTests package
+2. Run:
+   java -jar target/SpringAiDemo-0.0.1-SNAPSHOT.jar
 
-- Spring Boot application (Java)
-- Example service that sends prompts to an AI provider and receives responses
-- Simple REST API endpoints to demonstrate AI interactions
-- Configuration for environment-based settings (API keys, endpoints)
+Configuration
+- To enable real data from OpenWeatherMap set the environment variable OPENWEATHERMAP_API_KEY or configure application.yml with the key.
+  Example (Linux/macOS):
+    export OPENWEATHERMAP_API_KEY=your_api_key_here
 
-## Requirements
+Examples
+- Mock mode (no API key):
+  curl "http://localhost:8080/api/weather?city=London"
 
-- Java 17+ (or the Java version configured in the project)
-- Maven or Gradle (depending on project build tool)
-- An account and API key for the AI provider used by the application
+- Real data (with API key):
+  curl "http://localhost:8080/api/weather?city=London"
 
-## Getting started
-
-1. Clone the repository:
-
-   git clone https://github.com/sujanduminda/SpringAiDemo.git
-   cd SpringAiDemo
-
-2. Configure environment variables (example):
-
-   export AI_API_KEY=your_api_key_here
-   export AI_API_URL=https://api.example.com/v1
-
-   Alternatively, set these in application.properties or application.yml as appropriate for your environment.
-
-3. Build the project:
-
-   If using Maven:
-   mvn clean package
-
-   If using Gradle:
-   ./gradlew build
-
-4. Run the application:
-
-   java -jar target/spring-aidemo-0.0.1-SNAPSHOT.jar
-
-   Or using Maven:
-   mvn spring-boot:run
-
-## API
-
-The demo exposes a few simple REST endpoints to interact with the AI service. Example endpoints (adjust paths based on your controller code):
-
-- POST /api/ai/prompt
-  - Request body: { "prompt": "Write a short product description for a coffee maker." }
-  - Response: { "response": "AI-generated text..." }
-
-- GET /health
-  - Simple health check
-
-Refer to the controllers in the `src/main/java` directory for exact endpoint paths and request/response formats.
-
-## Configuration
-
-Common configuration points (update according to your code):
-
-- application.properties / application.yml
-  - ai.api.key
-  - ai.api.url
-  - ai.model (if applicable)
-
-Environment variables are preferred for sensitive values like API keys.
-
-## Development notes
-
-- Add unit tests for service classes that encapsulate AI calls. Mock external HTTP calls to the AI provider.
-- Keep prompt construction and parsing in separate classes to make testing and iteration easier.
-- Implement rate limiting and retries where appropriate when calling external AI APIs.
-
-## Contributing
-
-Contributions are welcome. Open an issue to discuss changes before submitting a pull request.
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes and open a PR
-
-## License
-
-Specify a license for your project (e.g., MIT, Apache-2.0) or keep it private as needed.
-
----
-
-If you want, I can customize this README with specific build tool (Maven/Gradle) details, the exact endpoints from the code, or include sample curl requests. Tell me what you'd like added.
+Notes
+- The OpenWeatherMap API may return errors for unknown city names; the service will return 404 in such cases.
+- This is a minimal example intended as a starting point. Feel free to extend error handling, add caching, tests and DTOs as needed.
