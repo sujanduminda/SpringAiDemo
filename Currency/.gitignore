@@ -1,0 +1,14 @@
+# Java
+target/
+*.class
+
+# Maven
+.settings/
+.classpath
+.project
+.idea/
+*.iml
+
+# Logs
+logs/
+*.log
